@@ -5,4 +5,5 @@ block content
 	h3 Albums:
 	ul
 		each album in albums
-			li(id="#{album._id}") album.albumname
+			li(id="#{album._id}")
+			a(href="albums/#{album._id}") #{album.albumname}
