@@ -2,6 +2,7 @@ extends layout
 
 block content
 	h1 Hi, #{user.username}
+	a(href="/createAlbum") New Album
 	h3 Albums:
 	ul
 		each album in albums
