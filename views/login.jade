@@ -1,8 +1,8 @@
 extends layout
 
 block content
-	form
-		input(type="text" name="username" placeholder="Username")
+	form(method="post" action="login")
+		input(type="text" name="username" placeholder="Username" id="userId")
 		input(type="password" name="password" placeholder="Password")
 		button(type="submit") Login
 	a(href="/register") Register
