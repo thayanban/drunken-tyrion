@@ -33,3 +33,12 @@ exports.createUser = function(req, res) {
 	//save user to db
 	//redirect to login.
 };
+exports.singout = function(req, res) {
+	res.render('logout');
+};
+exports.quit = function(req, res) {
+	if (req.session.user) {
+		req.session.user = null;
+		res.redirect('/login');
+	}
+};
