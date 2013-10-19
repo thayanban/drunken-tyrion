@@ -33,6 +33,8 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/login', user.login);
 app.get('/register', user.register);
+app.get('/logout', user.logout);
+app.post('/logout',user.exit);
 
 //TODO:
 app.post('/register', user.createUser);
