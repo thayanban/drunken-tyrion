@@ -4,14 +4,14 @@ exports.login = function(req, res) {
 };
 exports.authenticate = function(req, res) {
 	var user = req.body;
-	dbase.find('users', user, function(error, data) {
+	dbase.find('users', user, function(error, users) {
 		if (error) {
 			res.send(404, error);
 			return;
 		}
-		if (data) {
+		if (users[0]) {
 			res.redirect('/albums');
-			req.session.user = data;
+			req.session.user = users[0];
 			return;
 		}
 		res.redirect('/login');

@@ -3,5 +3,5 @@ extends layout
 block content
 	form(action="/createAlbum" enctype="multipart/form-data" method="post")
 		input(type="text" name="albumname" placeholder="Album Name")
-		input(type="file" name="imagename" placeholder="Select Image")
+		input(type="file" name="imagename" placeholder="Select Image" multiple="multiple" )
 		button(type="submit") create
