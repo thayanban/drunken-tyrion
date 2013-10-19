@@ -18,7 +18,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(express.bodyParser());
+app.use(express.bodyParser({ uploadDir:__dirname + '/uploads' }));
 app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
@@ -40,6 +40,7 @@ app.post('/login', user.authenticate);
 
 app.get('/albums', album.list);
 app.get('/createAlbum', album.createAlbum);
+app.get('/image/:name', album.serveImage);
 
 app.post('/createAlbum', album.insertAlbum);
 
