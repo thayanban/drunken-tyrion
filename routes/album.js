@@ -46,7 +46,12 @@ exports.list = function(req, res) {
 };
 exports.serveImage = function(req, res) {
 	var imageName = req.name
+	, files = req.files.imagename
 	;
-	var stream = fs.createReadStream(uploadsRoot + imageName);
-	stream.pipe(res);
+	for(i; i < files.length; i++) {
+		res.setHeader('Content-Type' , files[i].type);
+		var stream = fs.createReadStream(uploadsRoot + imageName);
+		stream.pipe(res);
+		res.render('albums', {user: req.session.user, albums: albums});
+	}
 };
