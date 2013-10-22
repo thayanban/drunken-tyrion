@@ -2,7 +2,13 @@ extends layout
 
 block content
 	form(method="post" action="login")
-		input(type="text" name="username" placeholder="Username" id="userId")
-		input(type="password" name="password" placeholder="Password")
+		input(type="text" name="username" placeholder="Username" id="userId" value="#{values.username}")
+		if error
+			if error.username
+				label(for="username") #{error.username}
+		input(type="password" name="password" placeholder="Password" value="#{values.password}")
+		if error
+			if error.password
+				lable(for="password") #{error.password}
 		button(type="submit") Login
 	a(href="/register") Register

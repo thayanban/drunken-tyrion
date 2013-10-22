@@ -24,12 +24,19 @@ app.use(express.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+var restrict = function (req, res, next) {
+	if (req.session.user) {
+		next();
+		return;
+	}
+	res.redirect('/login');
+};
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
+app.get('/', restrict, routes.index);
 app.get('/login', user.login);
 app.get('/register', user.register);
 app.get('/logout', user.singout);
@@ -39,11 +46,12 @@ app.post('/logout',user.quit);
 app.post('/register', user.createUser);
 app.post('/login', user.authenticate);
 
-app.get('/albums', album.list);
-app.get('/createAlbum', album.createAlbum);
-app.get('/image/:name', album.serveImage);
+app.get('/albums', restrict, album.list);
+app.get('/createAlbum', restrict, album.createAlbum);
+app.get('/image/:name', restrict, album.serveImage);
 
 app.post('/createAlbum', album.insertAlbum);
+
 
 
 http.createServer(app).listen(app.get('port'), function(){
