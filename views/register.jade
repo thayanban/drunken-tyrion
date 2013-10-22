@@ -2,7 +2,16 @@ extends layout
 
 block content
 	form(method="post" action="/register")
-		input(type="text" name="username" placeholder="Username")
-		input(type="password" name="password" placeholder="Password")
-		input(type="password" name="confirmPassword" placeholder="confirm password")
+		input(type="text" name="username" placeholder="Username" value="#{values.username}")
+		if error
+			if error.username
+				label(for="username") #{error.username}
+		input(type="password" name="password" placeholder="Password" value="#{values.password}")
+		if error
+			if error.password
+				label(for="password") #{error.password}
+		input(type="password" name="confirmPassword" placeholder="confirmPassword" value="#{values.confirmPassword}")
+		if error
+			if error.confirmPassword
+				label(for="confirmPassword") #{error.confirmPassword}
 		button(type="submit") Register
