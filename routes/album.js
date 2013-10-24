@@ -49,9 +49,21 @@ exports.serveImage = function(req, res) {
 	, files = req.files.imagename
 	;
 	for(i; i < files.length; i++) {
-		res.setHeader('Content-Type' , files[i].type);
 		var stream = fs.createReadStream(uploadsRoot + imageName);
 		stream.pipe(res);
 		res.render('albums', {user: req.session.user, albums: albums});
 	}
+};
+exports.displayAlbum = function(req, res) {
+	var albumId = req.params.id
+	;
+	dbase.find("albums", {_id:dbase.ObjectID.createFromHexString(albumId)}, function(err, albums) {
+		if(err) {
+			return res.send(404, err);
+		}
+		if(!albums[0]) {
+			return res.send(404, err);
+		}
+		res.render('album', albums[0]);
+	});
 };
