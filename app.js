@@ -43,7 +43,6 @@ app.get('/register', user.register);
 app.get('/logout',restrict, user.singout);
 app.post('/logout', user.quit);
 
-//TODO:
 app.post('/register', user.createUser);
 app.post('/login', user.authenticate);
 
