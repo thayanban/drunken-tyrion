@@ -1,14 +1,16 @@
 extends layout
 
 block content
+	label(for="userId" style="font-size:16px; display:inline; position:absolute; top:50px; left: 200px;") username :
+	label(for="userp" style="font-size:16px; display:inline; position:absolute; top:100px; left: 200px;") password :
 	form(method="post" action="login")
-		input(type="text" name="username" placeholder="Username" id="userId" value="#{values.username}")
+		input(type="text" name="username" placeholder="Username" id="userId" value="#{values.username}" style="display:inline; position:absolute; top:50px; left: 300px;")
 		if error
 			if error.username
-				label(for="username") #{error.username}
-		input(type="password" name="password" placeholder="Password" value="#{values.password}")
+				label(for="username" style="color:red; display:inline; position:absolute; top:50px; left:500px;") #{error.username}
+		input(type="password" name="password" placeholder="Password" id="userp" value="#{values.password}" style="display:inline; position:absolute; top:100px; left: 300px;")
 		if error
 			if error.password
-				lable(for="password") #{error.password}
-		button(type="submit") Login
-	a(href="/register") Register
+				lable(for="password" style="color:red; display:inline; position:absolute; top:100px; left: 500px;") #{error.password}
+		button(type="submit" style="color:blue; display:inline; position:absolute; top:150px; left: 300px;") Login
+		a(href="/register" style="display:inline; position:absolute; top:155px; left: 380px;") Register
