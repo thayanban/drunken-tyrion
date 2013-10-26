@@ -61,7 +61,7 @@ exports.createUser = function(req, res) {
 		error = true;
 		view.username = "username required min 8 max 20 character";
 	}
-	if (!newuser.password) {
+	else if (!newuser.password) {
 		error = true;
 		view.password = "please enter your password";
 	} 
@@ -76,7 +76,7 @@ exports.createUser = function(req, res) {
 	dbase.find('users', {username:newuser.username}, function(err, users) {
 	if (users[0]) {
 		error = true;
-		view.confirmPassword = "please give valid username";
+		view.confirmPassword = "please give valid username password";
 	}
 	if (error) {
 		res.render('register', {
