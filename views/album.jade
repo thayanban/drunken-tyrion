@@ -2,3 +2,7 @@ extends layout
 
 block content
 	h1 #{albumname}
+	ul
+		each image in album
+			li(id="#{image._id}")
+			a(href="albums/#{image._id}") #{image.imagename}

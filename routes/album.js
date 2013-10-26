@@ -48,16 +48,18 @@ exports.serveImage = function(req, res) {
 	var imageName = req.name
 	, files = req.files.imagename
 	;
-	for(i; i < files.length; i++) {
-		var stream = fs.createReadStream(uploadsRoot + imageName);
-		stream.pipe(res);
-		res.render('albums', {user: req.session.user, albums: albums});
-	}
+	console.log(req.name);
+	console.log(uploadsRoot);
+		//res.writeHead({'content_type':'image/jpeg'});
+		//res.write(files, "binary");
+		//var stream = fs.createReadStream(uploadsRoot + imageName);
+		//stream.pipe(res);
+		res.render('album', {user: req.session.user, imagename: imageName});
 };
 exports.displayAlbum = function(req, res) {
 	var albumId = req.params.id
 	;
-	dbase.find("albums", {_id:dbase.ObjectID.createFromHexString(albumId)}, function(err, albums) {
+	dbase.find("albums", {_id:dbase.ObjectId.createFromHexString(albumId)}, function(err, albums) {
 		if(err) {
 			return res.send(404, err);
 		}
