@@ -1,9 +1,9 @@
 extends layout
 
 block content
-	h1 Hi, #{user.username}
+	h1(style="color:blue") Hi, #{user.username}
 	a(href="/createAlbum") New Album
-	h3 Albums:
+	h3(style="color:violet") Albums:
 	ul
 		each album in albums
 			li(id="#{album._id}")

@@ -39,10 +39,9 @@ if ('development' == app.get('env')) {
 app.get('/', restrict, routes.index);
 app.get('/login', user.login);
 app.get('/register', user.register);
-app.get('/logout', user.singout);
-app.post('/logout',user.quit);
+app.get('/logout',restrict, user.singout);
+app.post('/logout', user.quit);
 
-//TODO:
 app.post('/register', user.createUser);
 app.post('/login', user.authenticate);
 

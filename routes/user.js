@@ -1,63 +1,88 @@
 var dbase = require('../lib/dbase');
 exports.login = function(req, res) {
-	res.render('login', {values:{username:"", password:""}});
+	res.render('login', {
+		values : {
+			username : "",
+			password : ""
+		}
+	});
 };
 exports.authenticate = function(req, res) {
 	var user = req.body;
 	console.log(user);
-	var error
-	, view = {}
-	;
-	
+	var error, view = {};
+
 	if (!user.username) {
 		error = true;
 		view.username = "please enter your username";
 	}
-	if (!user.password) {
+	else if(!user.password) {
 		error = true;
 		view.password = "please enter your password";
 	}
-	if (error) {
-		res.render('login', {error:view, values:user});
-		return;
-	}
-	dbase.find('users', user, function(error, users) {
+	dbase.find('users', user, function(err, users) {
+		if (!users[0]) {
+			error = true;
+			view.password = "give valid username password";
+		}
 		if (error) {
-			res.send(404, error);
-			return;
+		res.render('login', {
+			error : view,
+			values : user
+		});
+		return;
 		}
 		if (users[0]) {
 			res.redirect('/albums');
 			req.session.user = users[0];
 			return;
 		}
-		res.redirect('/login');
 	});
 };
 exports.register = function(req, res) {
-	res.render('register', {values:{username:"", password:"", confirmPassword:""}});
+	res.render('register', {
+		values : {
+			username : "",
+			password : "",
+			confirmPassword : ""
+		}
+	});
 };
 
 exports.createUser = function(req, res) {
 	var newuser = req.body;
 	console.log(newuser);
-	var error
-	, view = {}
-	;
+	var error, view = {};
 	if (!newuser.username) {
 		error = true;
 		view.username = "please enter your username";
+	} 
+	else if (newuser.username.length < 8 || newuser.username.length > 20) {
+		error = true;
+		view.username = "username required min 8 max 20 character";
 	}
-	if (!newuser.password) {
+	else if (!newuser.password) {
 		error = true;
 		view.password = "please enter your password";
-	}
-	if (newuser.password!==newuser.confirmPassword) {
+	} 
+	else if (newuser.password.length < 8 || newuser.password.length >= 12) {
 		error = true;
-		view.confirmPassword = "please enter your confirmPassword";
+		view.password = "password required min 8 max 12 character";
+	} 
+	else if (newuser.password !== newuser.confirmPassword) {
+		error = true;
+		view.confirmPassword = "unmatch your password";
+	}
+	dbase.find('users', {username:newuser.username}, function(err, users) {
+	if (users[0]) {
+		error = true;
+		view.confirmPassword = "please give valid username password";
 	}
 	if (error) {
-		res.render('register',{error:view, values:newuser});
+		res.render('register', {
+			error : view,
+			values : newuser
+		});
 		return;
 	}
 	dbase.save('users', newuser, function(error) {
@@ -67,8 +92,7 @@ exports.createUser = function(req, res) {
 		}
 		res.redirect('/login');
 	});
-	//save user to db
-	//redirect to login.
+});
 };
 exports.singout = function(req, res) {
 	res.render('logout');
