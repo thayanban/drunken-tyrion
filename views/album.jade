@@ -1,8 +1,9 @@
 extends layout
 
 block content
-	h1 #{albumname}
+	h1(style="color:blue") #{albumname}
 	ul
-		each image in album
-			li(id="#{image._id}")
-			a(href="albums/#{image._id}") #{image.imagename}
+		each file in files
+			li
+				a(href="/imageServer?albumId=#{_id}&fileId=#{file.id}") #{file.originalName}
+					img(src="/imageServer?albumId=#{_id}&fileId=#{file.id}" href="/imageServer?albumId=#{_id}&fileId=#{file.id}" style="width:80px; height:80px")

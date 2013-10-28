@@ -48,7 +48,7 @@ app.post('/login', user.authenticate);
 app.get('/albums', restrict, album.list);
 app.get('/albums/:id', restrict, album.displayAlbum);
 app.get('/createAlbum', restrict, album.createAlbum);
-app.get('/albums/:id/:name', restrict, album.serveImage);
+app.get('/imageServer', restrict, album.serveImage);
 
 app.post('/createAlbum', album.insertAlbum);
 
